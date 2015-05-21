@@ -1,0 +1,121 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require_relative 'lib/common.rb'
+require 'ruby-progressbar'
+
+Crawler.max_concurrency = 200
+
+secciones = Crawler::Runner.new URL_SECCIONES
+secciones.request_parser = -> (request){
+  self.method = :post
+  self.body = {
+    e: data[:entidad],
+    q: data[:seccion],
+    t: 'seccion',
+    c: 'SECCION',
+    l: '0'
+  }
+}
+
+secciones.response_parser = -> (body) {
+  data = body.split('|').last
+  json = JSON.parse(data, symbolize_names: true)
+  geom = json[:valores].first[:geom]
+
+
+  geom.scan(%r{\(\(([^\(\)]+)\)\)}).map { |polygon|
+    polygon[0].split(',').map {|punto| punto.split(' ').map(&:to_f)}
+  }
+}
+
+base_path = File.dirname(__FILE__)
+file_distritos = File.expand_path './data/distritos.json', base_path
+
+
+if !File.exists? file_distritos
+  puts "Buscando secciones por distrito"
+  require_relative './distritos'
+end
+
+entidades = JSON.parse(File.read(file_distritos), symbolize_names: true)
+requests = []
+
+entidad_key = ARGV[0].to_sym
+entidad = entidades[entidad_key]
+fname = "#{entidad_key.to_s.rjust(2, '0')}-#{entidad[:nombre]}"
+
+entidad[:distritos].each {|id, dto|
+  requests.concat dto[:secciones].map {|s| {entidad: entidad_key, seccion: s} }
+}
+
+
+file_secciones = File.expand_path "./data/secciones-#{fname}.json", base_path
+puts "Buscando geometría de #{requests.count} secciones"
+
+geo = []
+
+pb_opts = {
+  title: 'Secciones',
+  starting_at: 0,
+  total: requests.count,
+  format: '%t: %c |%B| %f',
+  throttle_rate: 0.1
+}
+bar = ProgressBar.create(pb_opts)
+
+begin
+  puts "Empezando crawl con #{Crawler.max_concurrency} requests simultáneos"
+  puts ""
+  secciones.run requests do |request, response|
+    seccion = {
+      _id: "#{request.data[:entidad]}-#{request.data[:seccion]}",
+      entidad: request.data[:entidad].to_s.to_i,
+      seccion: request.data[:seccion],
+      coords: {}
+    }
+
+    begin
+      polygons = response.body
+    rescue Exception => e
+      puts e.backtrace.reverse
+      puts e
+      exit 1
+      # return
+    end
+
+    if polygons.count == 1
+      seccion[:coords] = {
+        type: 'Polygon',
+        coordinates: [
+          [
+            polygons.first
+          ]
+        ]
+      }
+    else
+      polygons = polygons.map {|pol| [[pol]]}
+      seccion[:coords] = {
+        type: 'MultiPolygon',
+        coordinates: [
+          polygons
+        ]
+      }
+    end
+    geo << seccion
+    bar.increment
+  end
+rescue Crawler::Error::HTTP => e
+  puts e
+  exit 1
+rescue Crawler::Error::Timeout => e
+  puts e
+  exit 1
+end
+
+
+
+
+File.open file_secciones, 'w' do |f|
+  f << geo.to_json
+end

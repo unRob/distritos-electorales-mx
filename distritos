@@ -1,0 +1,67 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require_relative 'common.rb'
+
+distritos = Crawler::Runner.new URL_LISTADO
+
+distritos.request_parser = -> (request){
+  self.body = {ent: data}
+  self.method = :post
+}
+
+count = 0
+distritos.response_parser = -> (body) {
+  distritos = {}
+  nombre = nil
+
+  body = body.encode('UTF-8', 'ISO-8859-1') #porque burocracia
+  rows = body.split('$')
+  rows.shift
+
+  rows.each do |dto|
+    cols = dto.split '|'
+    nombre = cols[1].utf_downcase unless nombre
+    dto = cols[2]
+
+    distritos[dto] ||= {secciones: []}
+
+    secciones = Range.new(*cols[5..6].map(&:to_i)).to_a
+    count += secciones.count
+    distritos[dto][:cabecera] = cols[4].utf_downcase
+    distritos[dto][:secciones] += secciones
+  end
+
+  return {nombre: nombre, distritos: distritos}
+}
+
+entidades = {}
+
+
+begin
+  distritos.run (5..5) do |request, response|
+    begin
+      entidades[request.data] = response.body
+    rescue Exception => e
+      puts e.backtrace.reverse
+      puts e
+      puts request.data
+      exit
+    end
+  end
+rescue Crawler::Error::HTTP => e
+  puts e
+  exit 1
+rescue Crawler::Error::Timeout => e
+  puts e
+  exit 1
+end
+
+puts "Encontramos #{count} secciones electorales"
+
+file_distritos = File.expand_path('./data/distritos.json', File.dirname(__FILE__))
+File.open(file_distritos, 'w') do |f|
+  f << entidades.to_json
+end
+
+puts "Distritos guardados a #{file_distritos}"
