@@ -9,3 +9,8 @@ Baja la lista de distritos y las secciones que los componen
 ## `seccion [id_entidad]`
 
 Baja la lista de secciones geo-referenciadas de cada entidad federativa (`1..32`)
+
+
+# Licencia
+
+(c) 2015 Roberto Hidalgo, Partido Surrealista Mexicano [Licencia Patito](LICENSE.md)
