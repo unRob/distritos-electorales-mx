@@ -1,0 +1,47 @@
+{
+	"distritos": {
+		"federales": "distritos/federales/_todos.json",
+		"locales": {
+			"01": "distritos/01-aguascalientes/_todos.json",
+			"09": "distritos/09-distrito federal/_todos.json",
+			"14": "distritos/14-jalisco/_todos.json",
+			"15": "distritos/15-mexico/_todos.json",
+			"19": "distritos/19-veracruz/_todos.json",
+			"30": "distritos/30-veracruz/_todos.json"
+		}
+	},
+	"secciones": {
+		"01" : "secciones/01-aguascalientes.json",
+		"02" : "secciones/02-baja california.json",
+		"03" : "secciones/03-baja california sur.json",
+		"04" : "secciones/04-campeche.json",
+		"05" : "secciones/05-coahuila.json",
+		"06" : "secciones/06-colima.json",
+		"07" : "secciones/07-chiapas.json",
+		"08" : "secciones/08-chihuahua.json",
+		"09" : "secciones/09-distrito federal.json",
+		"10" : "secciones/10-durango.json",
+		"11" : "secciones/11-guanajuato.json",
+		"12" : "secciones/12-guerrero.json",
+		"13" : "secciones/13-hidalgo.json",
+		"14" : "secciones/14-jalisco.json",
+		"15" : "secciones/15-mexico.json",
+		"16" : "secciones/16-michoacan.json",
+		"17" : "secciones/17-morelos.json",
+		"18" : "secciones/18-nayarit.json",
+		"19" : "secciones/19-nuevo leon.json",
+		"20" : "secciones/20-oaxaca.json",
+		"21" : "secciones/21-puebla.json",
+		"22" : "secciones/22-queretaro.json",
+		"23" : "secciones/23-quintana roo.json",
+		"24" : "secciones/24-san luis potosi.json",
+		"25" : "secciones/25-sinaloa.json",
+		"26" : "secciones/26-sonora.json",
+		"27" : "secciones/27-tabasco.json",
+		"28" : "secciones/28-tamaulipas.json",
+		"29" : "secciones/29-tlaxcala.json",
+		"30" : "secciones/30-veracruz.json",
+		"31" : "secciones/31-yucatan.json",
+		"32" : "secciones/32-zacatecas.json",
+	}
+}
