@@ -1,0 +1,1 @@
+docs/duckdb/distritos.duckdb filter=lfs diff=lfs merge=lfs -text

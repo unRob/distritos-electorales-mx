@@ -1,0 +1,3 @@
+cache/*
+distritos.db
+!cache/.gitkeep

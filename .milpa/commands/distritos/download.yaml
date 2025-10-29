@@ -1,0 +1,4 @@
+summary: Downloads and converts distritos electorales to geojson
+description: |
+  Downloads from INE GCP storage, then expands, then uses docker-based `ogr2ogr` to convert shapefiles into WSG 84 Web Mercator-projected geojson.
+
