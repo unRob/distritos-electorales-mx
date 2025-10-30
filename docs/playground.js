@@ -71,10 +71,12 @@ async function distritos(lat, lng) {
   console.info(`query: returned ${result.length} results`)
 
   for (row of result) {
-      console.log(row)
-      let li = document.createElement("li")
-      li.innerText = JSON.stringify(row)
-      $distritos.appendChild(li)
+    let li = document.createElement("li")
+    let code = document.createElement("code")
+    code.innerText = JSON.stringify(row, null, " ")
+    console.log(row, code.innerText)
+    li.appendChild(code)
+    $distritos.appendChild(li)
   }
   console.info(`query: complete`)
 }
