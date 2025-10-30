@@ -29,7 +29,7 @@ milpa distritos find -- 19.430160 -99.117937
 
 ### Desde el browser
 
-https://unrob.github.io/distritos-electorales-mx: Un playground simple para probar la DB que generé en 2025-29-10. Obtiene la ubicación geográfica del dispositivo, carga la DB de 18Mb al browser, y usa SQLite compilado para WASM para buscar los distritos locales y federales correspondientes. Este playground usa SQLite compilado a WASM desde el navegador, y no guarda ni transmite la ubicación del dispositivo. Requiere un navegador que soporte [WASM](https://caniuse.com/wasm) y [GeoLocation API](https://caniuse.com/mdn-api_geolocation).
+https://unrob.github.io/distritos-electorales-mx: Un playground simple para probar la DB que generé en 2025-10-29. Obtiene la ubicación geográfica del dispositivo, carga la DB de 18Mb al browser, y usa SQLite compilado para WASM para buscar los distritos locales y federales correspondientes. Este playground usa SQLite compilado a WASM desde el navegador, y no guarda ni transmite la ubicación del dispositivo. Requiere un navegador que soporte [WASM](https://caniuse.com/wasm) y [GeoLocation API](https://caniuse.com/mdn-api_geolocation).
 
 ## Limitantes
 
