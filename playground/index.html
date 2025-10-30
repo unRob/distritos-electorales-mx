@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html prefix="og:http://ogp.me/ns#" lang="es-mx">
+	<head lang="es-mx">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta property="og:type" content="profile" />
+		<meta property="og:locale" content="es-mx" />
+		<meta property="og:title" content="distritos-electorales-mx playground" />
+		<meta property="og:description" content="Un webapp pitero que requiere WASM y GeoLocation API para convertir la ubicación geográfica del dispositivo en los distritos locales y federales correspondientes." />
+		<title>dtos-mx playground</title>
+		<link rel="stylesheet" href="https://rob.mx/index.css" />
+    <style>
+      #find-me {
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+        font: inherit;
+        font-weight: bold;
+        font-size: 2em;
+        border-radius: .5em;
+        background: var(--rosa);
+        outline: none;
+        border-style: none;
+        color: #fff;
+      }
+    </style>
+	</head>
+	<body>
+    <div id="wrapper">
+      <header>
+        <h1>Playground distritos electorales</h1>
+      </header>
+      <main>
+
+        <div id="playground">
+          <button id="find-me">Obtén coordenadas para mi ubicación</button>
+          <h2><span id="lat"></span> <span id="lng"></span></h2>
+          <p>Resolución: <span id="accuracy"></span>m</p>
+
+          <ul id="distritos"></ul>
+        </div>
+      </main>
+  </div>
+    <script src="sqlite3.js"></script>
+    <script src="playground.js"></script>
+  </body>
+</html>

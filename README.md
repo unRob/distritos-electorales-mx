@@ -27,6 +27,10 @@ milpa distritos find -- 19.430160 -99.117937
 # 10|9|local|0
 ```
 
+### Desde el browser
+
+https://unrob.github.io/distritos-electorales-mx: Un playground simple para probar la DB que generé en 2025-29-10. Obtiene la ubicación geográfica del dispositivo, carga la DB de 18Mb al browser, y usa SQLite compilado para WASM para buscar los distritos locales y federales correspondientes. Este playground usa SQLite compilado a WASM desde el navegador, y no guarda ni transmite la ubicación del dispositivo. Requiere un navegador que soporte [WASM](https://caniuse.com/wasm) y [GeoLocation API](https://caniuse.com/mdn-api_geolocation).
+
 ## Limitantes
 
 La interfaz [geopoly](https://sqlite.org/geopoly.html) en SQLite trabaja únicamente con objetos de tipo [Polygon](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6). El MGS contiene objetos de tipo `MultiPolygon` así como `Polygon` con "hoyos" (por ejemplo, el distrito federal 4to de Quintana Roo). Para poder asegurar compatibilidad con la interfaz de `geopoly`, he convertido los multipolygons en polígonos simples, para los cuales existirá *más de una fila por distrito*. En el caso de polígonos complejos, es decir, aquellos con "hoyos", la geometría es simplificada ignorando estos "hoyos".
