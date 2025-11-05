@@ -1,4 +1,4 @@
-summary: Imports distritos electorales in geojson to SQLite
+summary: Imports distritos electorales ito SQLite
 description: |
   Uses JQ to turn geojson into SQL, then imports produced SQL into distritos.db in current repo.
 options:

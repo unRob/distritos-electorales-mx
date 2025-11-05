@@ -17,20 +17,7 @@ fi
 
 if [[ ! -f "$root/DISTRITO_FEDERAL.shp" ]] || [[ ! -f "$root/DISTRITO_LOCAL.shp" ]]; then
   @milpa.log info "Extracting 7z archive"
-  7za x -o"$root" "$archive" DISTRITO_FEDERAL.shp DISTRITO_LOCAL.shp
+  7za x -o"$root" "$archive" DISTRITO_FEDERAL.shp DISTRITO_LOCAL.shp SECCION.shp
 fi
 
-function docker_ogr() {
-  docker run --entrypoint ogr2ogr \
-    --rm -it \
-    -v "$root":/data ghcr.io/osgeo/gdal:alpine-small-latest \
-    -t_srs crs:84 \
-    "$@"
-}
-
-@milpa.log info "Converting shapefiles into wgs84 web mercator-projected geojson"
-
-docker_ogr /data/federales.geojson /data/DISTRITO_FEDERAL.shp || @milpa.fail "Could not parse DISTRITO_FEDERAL.shp into geojson"
-docker_ogr /data/locales.geojson /data/DISTRITO_LOCAL.shp || @milpa.fail "Could not parse DISTRITO_LOCAL.shp into geojson"
-
-@milpa.log complete "Cache populated with wgs84 web mercator-projected geojson"
+@milpa.log complete "Downloaded and extracted files"

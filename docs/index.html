@@ -11,18 +11,21 @@
 		<title>dtos-mx playground</title>
 		<link rel="stylesheet" href="https://rob.mx/index.css" />
     <style>
-      #find-me {
-        text-align: center;
-        margin: 0 auto;
-        display: block;
-        font: inherit;
-        font-weight: bold;
-        font-size: 2em;
-        border-radius: .5em;
-        background: var(--rosa);
-        outline: none;
-        border-style: none;
-        color: #fff;
+      body {
+
+      }
+
+      ol {
+        list-style: none;
+        margin-left: 0;
+        padding-left: 0em;
+        list-style-position: outside;
+        counter-reset: item 0;
+      }
+
+      ol li:before {
+        counter-increment: item;
+        content: counter(item) "."
       }
     </style>
 	</head>
@@ -32,17 +35,21 @@
         <h1>Playground distritos electorales</h1>
       </header>
       <main>
+        <p>Este es una demostración técnica de las bases de datos generadas con <a href="https://github.com/unRob/distritos-electorales-mx">unRob/distritos-electorales-mx</a>.
 
-        <div id="playground">
-          <button id="find-me">Obtén coordenadas para mi ubicación</button>
-          <h2><span id="lat"></span> <span id="lng"></span></h2>
-          <p>Resolución: <span id="accuracy"></span>m</p>
+        <h2>Cómo funciona</h2>
+        <ol>
+          <li>Seleccionas tu ubicación geográfica en un mapa, o permites que tu navegador las obtenga usando el <a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API">GeoLocation API</a>.</li>
+          <li>Tu navegador descarga una base de datos y realiza una consulta localmente.</li>
+          <li>Los resultados aparecen en el mapa.</li>
+        </ol>
 
-          <ul id="distritos"></ul>
-        </div>
+        <h2>Variantes</h2>
+        <ul>
+          <li><a href="sqlite/">SQLite</a> - Descarga de <em>18Mb</em> (sólo distritos federales y locales)<!--, 109Mb (distritos y secciones)-->.</li>
+          <li><a href="duckdb/">DuckDB</a> - Descarga de <em>183Mb</em> (sólo secciones federales).</li>
+        </ul>
       </main>
-  </div>
-    <script src="sqlite3.js"></script>
-    <script src="playground.js"></script>
+    </div>
   </body>
 </html>

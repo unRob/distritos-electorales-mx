@@ -1,0 +1,10 @@
+summary: finds the sección and distritos for given coordinates
+description: |
+  Reads existing `distritos.duckdb` and queries for given WGS 84 Web Mercator coordinates.
+arguments:
+  - name: lat
+    description: A wgs84 decimal latitude
+    required: true
+  - name: long
+    description: A wgs84 decimal longitude
+    required: true

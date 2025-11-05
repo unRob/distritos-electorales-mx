@@ -1,0 +1,20 @@
+summary: Projects a downloaded file into WSG84
+description: |
+  Uses `ogr2ogr` to convert shapefiles into WSG 84 Web Mercator-projected file.
+
+  ## Examples
+
+  `milpa distritos project cache/DISTRITO_FEDERAL.shp cache/distritos.geojson`
+
+  `milpa distritos project cache/SECCION.shp cache/secciones.geojson`
+arguments:
+  - name: input
+    description: The file to convert
+    required: true
+    values:
+      files: [shp]
+  - name: output
+    description: The path to the projected file.
+    required: true
+    values:
+      files: []

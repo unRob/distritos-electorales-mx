@@ -1,0 +1,9 @@
+summary: Imports secciones electorales to DuckDB
+description: |
+  Imports WGS84-projected **sección** shapefiles into a new DuckDB database at `/distritos.duckdb`.
+
+  See: https://duckdb.org/docs/stable/core_extensions/spatial/overview
+options:
+  overwrite:
+    description: replace existing database
+    type: bool

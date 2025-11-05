@@ -1,3 +1,4 @@
 cache/*
 /distritos.db
+/distritos.duckdb
 !cache/.gitkeep
